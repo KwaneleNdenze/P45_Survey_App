@@ -15,14 +15,20 @@ class AnswersController < ApplicationController
   
   def create
     @survey = Survey.find(params[:survey_id])
-    @question = @survey.questions.create(question_params)
+    @question = @survey.questions.find(params[:question_id])
+    @answer = @question.answers.create(answer_params)
+
+    @next_question = @survey.questions.find_by(order: @question.order + 1)
+        
+    if @next_question.present?
+      redirect_to survey_question_path(survey_id: @survey.id, id: @next_question.id)
     
-    if @question.errors.none?
-    redirect_to survey_path(@survey), notice: "Question Created Succesfully"
-    else 
-      render 'new'
+    else
+      redirect_to @survey, notice: "Survey Complete. Thank You."
     end
   end
+
+  
 
   def edit
     @survey = Survey.find(params[:survey_id])
@@ -47,7 +53,7 @@ class AnswersController < ApplicationController
   end
 
   private
-  def question_params
-    params.require(:question).permit(:question, :question_type, :question_first_option, :question_second_option, :question_third_option, :question_fourth_option, :question_fifth_option)
+  def answer_params
+    params.require(:answer).permit(:answer, :answer_type, :answer_first_option, :answer_second_option, :answer_third_option, :answer_fourth_option, :answer_fifth_option)
   end
 end

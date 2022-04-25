@@ -24,6 +24,10 @@
     <%= form.text_area :question, cols: 10, rows: 3 , class: 'form-control col-md-6' %>
   </p>
   <p>
+    <%= form.label :order %><br>
+    <%= form.number_field :order, class: 'form-control col-md-6' %>
+  </p>
+  <p>
     <%= form.label :question_type %><br>
     <%= form.select :question_type, ["Text", "Multiple Choice", "Long Answer", "Single Choice"], class: 'form-control col-md-6'  %>
     

@@ -4,7 +4,7 @@
 
   <hr class="my-4">
   <p class="text-center">
-  <%= link_to 'Back To Surveys List', surveys_path, :class => 'btn btn-md btn-dark' %>
+  <%= link_to 'Back To Surveys List', surveys_path, :class => 'btn btn-md btn-dark' %> | <%= link_to 'Survey Report', survey_survey_report_path(@survey), :class => 'btn btn-md btn-dark' %>
   </p>
 </div>
 <div class="pt-5 pb-5">
@@ -35,12 +35,13 @@
   <h1 class="display-4 text-center"><%= @survey.title %></h1>
 
   <hr class="my-4">
-  <p class="text-center"><%= link_to 'Begin Survey', survey_questions_path(@survey), class: 'btn btn-sm btn-dark'%></p>
+  <p class="text-center"><%= link_to 'Surveys Home', surveys_path, class: 'btn btn-sm btn-dark'%> | <%= link_to 'Begin Survey', survey_question_path(survey_id: @survey.id, id: @question.id), class: 'btn btn-sm btn-dark'%></p>
 </div>
 
 
 
 <% end%>
 
-<% console%>
+
+
 

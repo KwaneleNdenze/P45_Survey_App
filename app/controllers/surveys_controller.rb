@@ -8,13 +8,11 @@ class SurveysController < ApplicationController
 
   def show
     @survey = Survey.find(params[:id])  
-    @question = @survey.questions.first
-    
-
+    @question = @survey.questions.order(order: :asc).first
   end
 
+
   def new
-    #@survey = Survey.new
     @survey = current_user.surveys.build
   end
 
@@ -54,6 +52,14 @@ class SurveysController < ApplicationController
     @survey = current_user.surveys.find_by(id: params[:id])
     redirect_to surveys_path, notice: "Not Authorized To Modify This Survey" if @survey.nil?
 
+  end
+
+  def report
+    @survey = Survey.find(params[:survey_id])
+    @question = @survey.questions.where(:question_type => 'Single Choice').or(@survey.questions.where( :question_type => 'Multiple Choice')).all
+
+    @multiple_choice_answers_count = Answer.where(:answer => 'Not Applicable').count
+    @answers = Answer.all
   end
 
   private
