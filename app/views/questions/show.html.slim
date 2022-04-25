@@ -1,0 +1,137 @@
+- if @question.question_type == 'Text'
+  .card.col-md-10.mt-5.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+    .card-header.col-md-12.text-center
+      |  Question 
+      = @question.order
+      |  of 
+      = @count
+    .card-body
+      h5.card-title
+        = @question.question
+      p.card-text
+        | Type your answer in the textbox below.
+      = form_with(model: [ @survey, @question, @answer ], local: true) do |form|
+        - if @answer.errors.any?
+          #error_explanation
+            h2
+              = pluralize(@answer.errors.count, "error")
+              |  prohibited this answer from being saved: 
+            ul
+              - @answer.errors.full_messages.each do |msg|
+                li
+                  = msg
+        p
+          = form.text_field :answer, class: 'form-control col-md-6'
+        .card-footer.text-right
+          = form.submit 'Next', class: 'btn btn-sm btn-dark'
+- elsif @question.question_type == 'Multiple Choice'
+  .card.col-md-10.mt-5.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+    .card-header.col-md-12.text-center
+      |  Question 
+      = @question.order
+      |  of 
+      = @count
+    .card-body
+      h5.card-title
+        = @question.question
+      p.card-text
+        | Check all the relevant check boxes.
+      = form_with(model: [ @survey, @question, @answer ], local: true) do |form|
+        - if @answer.errors.any?
+          #error_explanation
+            h2
+              = pluralize(@answer.errors.count, "error")
+              |  prohibited this answer from being saved: 
+            ul
+              - @answer.errors.full_messages.each do |msg|
+                li
+                  = msg
+        p
+          = form.text_field :answer, class: 'form-control col-md-6', type: 'hidden', value: 'Not Applicable'
+        .form-check.form-check-inline
+          = form.check_box(:answer_first_option, {}, @question.question_first_option)
+          = form.label :answer_first_option, @question.question_first_option, {:class => 'form-check-label'}
+        .form-check.form-check-inline
+          = form.check_box(:answer_second_option, {}, @question.question_second_option)
+          = form.label :answer_second_option, @question.question_second_option, {:class => 'form-check-label'}
+        .form-check.form-check-inline
+          = form.check_box(:answer_third_option, {}, @question.question_third_option)
+          = form.label :answer_third_option, @question.question_third_option, {:class => 'form-check-label'}
+        .form-check.form-check-inline
+          = form.check_box(:answer_fourth_option, {}, @question.question_fourth_option)
+          = form.label :answer_fourth_option, @question.question_fourth_option, {:class => 'form-check-label'}
+        .form-check.form-check-inline
+          = form.check_box(:answer_fifth_option, {}, @question.question_fifth_option)
+          = form.label :answer_fifth_option, @question.question_fifth_option, {:class => 'form-check-label'}
+        .card-footer.text-right
+          = form.submit 'Next', class: 'btn btn-sm btn-dark'
+- elsif @question.question_type == 'Long Answer'
+  .card.col-md-10.mt-5.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+    .card-header.col-md-12.text-center
+      |  Question 
+      = @question.order
+      |  of 
+      = @count
+    .card-body
+      h5.card-title
+        = @question.question
+      p.card-text
+        | Answer in the text area below.
+      = form_with(model: [ @survey, @question, @answer ], local: true) do |form|
+        - if @answer.errors.any?
+          #error_explanation
+            h2
+              = pluralize(@answer.errors.count, "error")
+              |  prohibited this answer from being saved: 
+            ul
+              - @answer.errors.full_messages.each do |msg|
+                li
+                  = msg
+        p
+          = form.text_area(:answer, size: '3x3', class: 'form-control col-md-6')
+        .card-footer.text-right
+          = form.submit 'Next', class: 'btn btn-sm btn-dark'
+- elsif @question.question_type == 'Single Choice'
+  .card.col-md-10.mt-5.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+    .card-header.col-md-12.text-center
+      |  Question 
+      = @question.order
+      |  of 
+      = @count
+    .card-body
+      h5.card-title
+        = @question.question
+      p.card-text
+        | Select one option from the options below
+      = form_with(model: [ @survey, @question, @answer ], local: true) do |form|
+        - if @answer.errors.any?
+          #error_explanation
+            h2
+              = pluralize(@answer.errors.count, "error")
+              |  prohibited this answer from being saved: 
+            ul
+              - @answer.errors.full_messages.each do |msg|
+                li
+                  = msg
+        p
+          = form.text_field :answer, class: 'form-control col-md-6', type: 'hidden', value: 'Not Applicable'
+        .form-check.form-check-inline
+          = form.radio_button :answer, @question.question_first_option
+          = form.label :answer_first_option,  @question.question_first_option, :class => 'form-check-label'
+        .form-check.form-check-inline
+          = form.radio_button :answer, @question.question_second_option
+          = form.label :answer_second_option, @question.question_second_option, :class => 'form-check-label'
+        .form-check.form-check-inline
+          = form.radio_button :answer, @question.question_third_option
+          = form.label :answer_third_option,  @question.question_third_option, :class => 'form-check-label'
+        .form-check.form-check-inline
+          = form.radio_button :answer, @question.question_fourth_option
+          = form.label :answer_fourth_option, @question.question_fourth_option, :class => 'form-check-label'
+        .form-check.form-check-inline
+          = form.radio_button :answer, @question.question_fifth_option
+          = form.label :answer_fifth_option, @question.question_fifth_option, :class => 'form-check-label'
+        .card-footer.text-right
+          = form.submit 'Next', class: 'btn btn-sm btn-dark'
+- else
+  h1
+    |  This survey has no questions 

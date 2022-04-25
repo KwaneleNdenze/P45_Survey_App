@@ -1,0 +1,38 @@
+h1.pb-5.pt-5
+  | Surveys List
+table.table
+  thead
+    tr
+      th[scope="col"]
+        | #
+      th[scope="col"]
+        | Title
+      th[scope="col"]
+        | Created By
+      th
+  tbody
+    - @surveys.each_with_index do |survey, index|
+      tr
+        th[scope="row"]
+          = index +1
+        td
+          = survey.title
+        td
+          = survey.user.email
+        - if user_signed_in?
+          - if survey.user == current_user
+            td
+              = link_to 'Show', survey_path(survey), :class => 'btn btn-sm btn-info'
+              |  | 
+              = link_to 'Edit', edit_survey_path(survey), :class => 'btn btn-sm btn-warning'
+              |  | 
+              = link_to 'Destroy', survey_path(survey), :class => 'btn btn-sm btn-danger', :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - else
+            td
+              = link_to 'Take Survey', survey_path(survey), :class => 'btn btn-sm btn-dark'
+        - else
+          td
+            = link_to 'Take Survey', survey_path(survey), :class => 'btn btn-sm btn-dark'
+- if user_signed_in?
+  .pt-5
+    = link_to 'Create New Survey', new_survey_path, :class=>'btn btn-md btn-dark'

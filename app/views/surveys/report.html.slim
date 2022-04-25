@@ -1,0 +1,87 @@
+.jumbotron
+  h1.display-4
+    = @survey.title
+    |  - Report
+  p.lead
+    | This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+  hr.my-4
+  table.table.table-borderless.table-dark
+    thead
+      tr
+        th[scope="col"]
+          | #
+        th[scope="col"]
+          | Question
+        th[scope="col"]
+          | Options
+        th[scope="col"]
+          | Choice Popularity
+    tbody
+      - @question.each_with_index do |question, index|
+        tr
+          th
+            = index + 1
+          td
+            = question.question
+          td
+            = question.question_first_option
+            br
+            = question.question_second_option
+            br
+            = question.question_third_option
+            br
+            = question.question_fourth_option
+            br
+            = question.question_fifth_option
+          td
+            - if question.question_type == 'Single Choice'
+              = @answers.where(answer: question.question_first_option).count
+              |  (
+              = (@answers.where(answer: question.question_first_option).count) / Answer.where(question_id: question.id).count.to_f * 100.to_f
+              | )
+              br
+              = @answers.where(answer: question.question_second_option).count
+              |  (
+              = (@answers.where(answer: question.question_second_option).count) / Answer.where(question_id: question.id).count.to_f * 100.to_f
+              | ) 
+              br
+              = @answers.where(answer: question.question_third_option).count
+              |  (
+              = (@answers.where(answer: question.question_third_option).count) / Answer.where(question_id: question.id).count.to_f * 100.to_f
+              | )
+              br
+              = @answers.where(answer: question.question_fourth_option).count
+              |  (
+              = (@answers.where(answer: question.question_fourth_option).count) / Answer.where(question_id: question.id).count.to_f * 100.to_f
+              | )
+              br
+              = @answers.where(answer: question.question_fifth_option).count
+              |  (
+              = (@answers.where(answer: question.question_fifth_option).count) / Answer.where(question_id: question.id).count.to_f * 100.to_f
+              | ) 
+            - else
+              = @answers.where(answer_first_option: question.question_first_option).count
+              |  (
+              = (@answers.where(answer_first_option: question.question_first_option).count) / Answer.where(question_id: question.id).count.to_f * 100
+              | )
+              br
+              = @answers.where(answer_second_option: question.question_second_option).count
+              |  (
+              = (@answers.where(answer_second_option: question.question_second_option).count) / Answer.where(question_id: question.id).count.to_f * 100
+              | )
+              br
+              = @answers.where(answer_third_option: question.question_third_option).count
+              |  (
+              = (@answers.where(answer_third_option: question.question_third_option).count) / Answer.where(question_id: question.id).count.to_f * 100
+              | )
+              br
+              = @answers.where(answer_fourth_option: question.question_fourth_option).count
+              |  (
+              = (@answers.where(answer_fourth_option: question.question_fourth_option).count) / Answer.where(question_id: question.id).count.to_f * 100
+              | )
+              br
+              = @answers.where(answer_fifth_option: question.question_fifth_option).count
+              |  (
+              = (@answers.where(answer_fifth_option: question.question_fifth_option).count) / Answer.where(question_id: question.id).count.to_f * 100
+              | ) 
+  = link_to 'Back To Surveys', surveys_path, class: 'btn btn-md btn-dark'

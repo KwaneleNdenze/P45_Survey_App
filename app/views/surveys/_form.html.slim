@@ -1,0 +1,20 @@
+= form_with model: @survey, local: true do |form|
+  - if @survey.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@survey.errors.count, "error")
+        |  prohibited this article from being saved: 
+      ul
+        - @survey.errors.full_messages.each do |msg|
+          li
+            = msg
+  p
+    = form.label :title
+    br
+    = form.text_field :title, :class=>'form-control col-md-4'
+  p
+    = form.number_field :user_id, id: :survey_user_id, class:'form-control', value: current_user.id, type: 'hidden'
+  p
+    = form.submit :class=>'btn btn-sm btn-dark'
+    |  | 
+    = link_to 'Back', surveys_path, :class=> 'btn btn-sm btn-primary'

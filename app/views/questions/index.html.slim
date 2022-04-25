@@ -1,0 +1,108 @@
+- @questions.each_with_index do |question, index|
+  - if question.question_type == 'Text'
+    .card.col-md-10.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+      .card-header.col-md-12.text-center
+        |  Question 
+        = index+1
+        |  of 
+        = @questions.count
+      .card-body
+        h5.card-title
+          = question.question
+        p.card-text
+          | Type your answer in the textbox below.
+        p
+          input.form-control.col-md-6[type="text"]
+      .card-footer.text-right
+        a.btn.btn-sm.btn-dark[href="#"]
+          | Next Question
+  - elsif question.question_type == 'Multiple Choice'
+    .card.col-md-10.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+      .card-header.col-md-12.text-center
+        |  Question 
+        = index+1
+        |  of 
+        = @questions.count
+      .card-body
+        h5.card-title
+          = question.question
+        p.card-text
+          | Check all the relevant check boxes.
+        .form-check.form-check-inline
+          input#exampleCheck1.form-check-input[type="checkbox"]
+          label.form-check-label[for="exampleCheck1"]
+            = question.question_first_option
+        .form-check.form-check-inline
+          input#exampleCheck1.form-check-input[type="checkbox"]
+          label.form-check-label[for="exampleCheck1"]
+            = question.question_second_option
+        .form-check.form-check-inline
+          input#exampleCheck1.form-check-input[type="checkbox"]
+          label.form-check-label[for="exampleCheck1"]
+            = question.question_third_option
+        .form-check.form-check-inline
+          input#exampleCheck1.form-check-input[type="checkbox"]
+          label.form-check-label[for="exampleCheck1"]
+            = question.question_fourth_option
+        .form-check.form-check-inline
+          input#exampleCheck1.form-check-input[type="checkbox"]
+          label.form-check-label[for="exampleCheck1"]
+            = question.question_fifth_option
+      .card-footer.text-right
+        a.btn.btn-sm.btn-dark[href="#"]
+          | Next Question
+  - elsif question.question_type == 'Long Answer'
+    .card.col-md-10.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+      .card-header.col-md-12.text-center
+        |  Question 
+        = index+1
+        |  of 
+        = @questions.all.count
+      .card-body
+        h5.card-title
+          =question.question
+        p.card-text
+          | Answer in the text area below.
+        p
+          textarea.form-control[rows="3"]
+      .card-footer.text-right
+        a.btn.btn-sm.btn-dark[href="#"]
+          | Next Question
+  - elsif question.question_type == 'Single Choice'
+    .card.col-md-10.mb-5.shadow-lg.bg-white.rounded[style="margin:auto; float:none;"]
+      .card-header.col-md-12.text-center
+        |  Question 
+        = index+1
+        |  of 
+        = @questions.count
+      .card-body
+        h5.card-title
+          = question.question
+        p.card-text
+          | Select one option from the options below
+        .form-check.form-check-inline
+          input#inlineRadio1.form-check-input[type="radio" name="inlineRadioOptions" value="option1"]
+          label.form-check-label[for="inlineRadio1"]
+            = question.question_first_option
+        .form-check.form-check-inline
+          input#inlineRadio2.form-check-input[type="radio" name="inlineRadioOptions" value="option2"]
+          label.form-check-label[for="inlineRadio2"]
+            = question.question_second_option
+        .form-check.form-check-inline
+          input#inlineRadio3.form-check-input[type="radio" name="inlineRadioOptions" value="option3"]
+          label.form-check-label[for="inlineRadio3"]
+            = question.question_third_option
+        .form-check.form-check-inline
+          input#inlineRadio4.form-check-input[type="radio" name="inlineRadioOptions" value="option4"]
+          label.form-check-label[for="inlineRadio4"]
+            = question.question_fourth_option
+        .form-check.form-check-inline
+          input#inlineRadio5.form-check-input[type="radio" name="inlineRadioOptions" value="option5"]
+          label.form-check-label[for="inlineRadio5"]
+            = question.question_fifth_option
+      .card-footer.text-right
+        a.btn.btn-sm.btn-dark[href="#"]
+          | Next Question
+  - else
+    h1
+      |  This survey has no questions 

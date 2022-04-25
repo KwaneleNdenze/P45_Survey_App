@@ -1,0 +1,32 @@
+- if user_signed_in? and @survey.user == current_user
+  .jumbotron.mt-5
+    h1.display-4.text-center
+      = @survey.title
+    hr.my-4
+    p.text-center
+      = link_to 'Back To Surveys List', surveys_path, :class => 'btn btn-md btn-dark'
+      |  | 
+      = link_to 'Survey Report', survey_survey_report_path(@survey), :class => 'btn btn-md btn-dark'
+  .pt-5.pb-5
+    = link_to 'Add Question', new_survey_question_path(@survey), :class => 'btn btn-md btn-success'
+  table.table.table-striped.table-dark
+    thead
+      tr
+        th[style="width:50%"]
+          | Question
+        th[style="width:25%"]
+          | Type
+        th
+    tbody
+      = render @survey.questions
+  .pb-5
+    = link_to 'Back To Surveys List', surveys_path, :class => 'btn btn-md btn-dark'
+- else
+  .jumbotron.mt-5
+    h1.display-4.text-center
+      = @survey.title
+    hr.my-4
+    p.text-center
+      = link_to 'Surveys Home', surveys_path, class: 'btn btn-sm btn-dark'
+      |  | 
+      = link_to 'Begin Survey', survey_question_path(survey_id: @survey.id, id: @question.id), class: 'btn btn-sm btn-dark'
